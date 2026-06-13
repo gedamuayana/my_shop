@@ -1,8 +1,8 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-from django.urls import path
 from .views import signup_view
+
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('deposit/', views.submit_deposit, name='deposit'),
@@ -11,6 +11,3 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('signup/', signup_view, name='signup'),
 ]
-from django.urls import path
-from .views import signup_view  # ይህንን ከላይ መጨመር እንዳትረሳ
-
