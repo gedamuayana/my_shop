@@ -56,4 +56,4 @@ from django.contrib.auth.models import User
 
 # ይህ ኮድ አድሚን አካውንት ከሌለ በራሱ ፈጥሮ ያልፋል
 if not User.objects.filter(is_superuser=True).exists():
-    User.objects.create_superuser('admin', 'admin@example.com', 'Gedamu@2026')
+    User.objects.create_superuser('kena', 'gedamuayana51@gmail.com', 'Gedamu@7775')
