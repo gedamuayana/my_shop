@@ -57,3 +57,18 @@ from django.contrib.auth.models import User
 # ይህ ኮድ አድሚን አካውንት ከሌለ በራሱ ፈጥሮ ያልፋል
 if not User.objects.filter(is_superuser=True).exists():
     User.objects.create_superuser('kena', 'gedamuayana51@gmail.com', 'Gedamu@7775')
+    from django.shortcuts import render, redirect
+    from django.contrib.auth.forms import UserCreationForm
+    from django.contrib import messages
+
+
+    def signup_view(request):
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.validate_unique() and form.is_valid():
+                form.save()
+                messages.success(request, "ምዝገባው ተሳክቷል! አሁን መግባት ይችላሉ።")
+                return redirect('login')  # ወደ ሎግኢን ገጽ ይወስደዋል
+        else:
+            form = UserCreationForm()
+        return render(request, 'registration/signup.html', {'form': form})
