@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from .models import UserWallet, DepositRequest
+from django.contrib import messages
+
 
 # 1. ዋናው የተጠቃሚ ገጽ (Dashboard)
 @login_required
@@ -14,6 +13,7 @@ def dashboard(request):
         'wallet': wallet
     }
     return render(request, 'dashboard.html', context)
+
 
 # 2. 1000 ብር አስገብቶ ስክሪንሾት መላኪያ ገጽ
 @login_required
@@ -35,6 +35,7 @@ def submit_deposit(request):
 
     return render(request, 'deposit.html')
 
+
 # 3. የዕለታዊ ኦርደር ሎጂክ (በቀን 100 ብር መደመሪያ)
 @login_required
 def complete_order(request):
@@ -51,22 +52,8 @@ def complete_order(request):
             return JsonResponse({'status': 'error', 'message': 'የዛሬውን ኦርደር ጨርሰዋል! እባክዎ ነገ ይመለሱ።'})
 
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
+from django.contrib.auth.models import User
 
-# 4. አዲስ መመዝገቢያ ገጽ (Sign Up View)
-def signup_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "ምዝገባው ተሳክቷል! አሁን መግባት ይችላሉ።")
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
-
-# 5. አድሚን አካውንት በራሱ የሚፈጥር ሲስተም
-try:
-    if not User.objects.filter(is_superuser=True).exists():
-        User.objects.create_superuser('kena', 'gedamuayana51@gmail.com', 'Gedamu@7775')
-except Exception:
-    pass
+# ይህ ኮድ አድሚን አካውንት ከሌለ በራሱ ፈጥሮ ያልፋል
+if not User.objects.filter(is_superuser=True).exists():
+    User.objects.create_superuser('kena', 'gedamuayana51@gmail.com', 'Gedamu@7775')
