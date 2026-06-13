@@ -60,15 +60,19 @@ if not User.objects.filter(is_superuser=True).exists():
     from django.shortcuts import render, redirect
     from django.contrib.auth.forms import UserCreationForm
     from django.contrib import messages
+    from django.contrib.auth.models import User
 
+
+    # የድሮዎቹ views (ለምሳሌ dashboard, submit_deposit, ወዘተ) እዚህ ላይ እንዳሉ ይቆዩ...
+    # ... ከነሱ በታች ይህ መኖሩን አረጋግጥ ፦
 
     def signup_view(request):
         if request.method == 'POST':
             form = UserCreationForm(request.POST)
-            if form.validate_unique() and form.is_valid():
+            if form.is_valid():
                 form.save()
                 messages.success(request, "ምዝገባው ተሳክቷል! አሁን መግባት ይችላሉ።")
-                return redirect('login')  # ወደ ሎግኢን ገጽ ይወስደዋል
+                return redirect('login')
         else:
             form = UserCreationForm()
         return render(request, 'registration/signup.html', {'form': form})
