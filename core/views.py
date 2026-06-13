@@ -52,3 +52,8 @@ def complete_order(request):
             return JsonResponse({'status': 'error', 'message': 'የዛሬውን ኦርደር ጨርሰዋል! እባክዎ ነገ ይመለሱ።'})
 
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
+from django.contrib.auth.models import User
+
+# ይህ ኮድ አድሚን አካውንት ከሌለ በራሱ ፈጥሮ ያልፋል
+if not User.objects.filter(is_superuser=True).exists():
+    User.objects.create_superuser('admin', 'admin@example.com', 'Gedamu@2026')
