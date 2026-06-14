@@ -85,3 +85,15 @@ if not User.objects.filter(is_superuser=True).exists():
 # 5. ሆም ፔጅ ቪው (ከእንግዲህ በትክክል ከሎግኢን በፊት ይነበባል)
 def home_view(request):
     return render(request, 'home.html')
+from django.http import HttpResponseRedirect
+from django.utils.translation import activate
+
+def set_language_view(request):
+    if request.method == 'POST':
+        language = request.POST.get('language')
+        next_url = request.POST.get('next', '/')
+        if language:
+            activate(language)
+            request.session['django_language'] = language
+        return HttpResponseRedirect(next_url)
+    return HttpResponseRedirect('/')
