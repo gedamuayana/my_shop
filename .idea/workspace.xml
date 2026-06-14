@@ -9,7 +9,7 @@
       <change beforePath="$PROJECT_DIR$/my_shop/core/admin.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/apps.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_shop/core/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_shop/runtime.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/models.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/tests.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/urls.py" beforeDir="false" />
