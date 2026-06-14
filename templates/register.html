@@ -2,25 +2,46 @@
 <html lang="am">
 <head>
     <meta charset="UTF-8">
-    <title>የተጠቃሚ ምዝገባ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>አዲስ አካውንት ይፍጠሩ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h2>አዲስ አካውንት ይፍጠሩ</h2>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center font-sans">
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100">
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">ይመዝገቡ</button>
-    </form>
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-extrabold text-gray-900">እንኳን ደህና መጡ</h2>
+            <p class="text-gray-500 text-sm mt-2">በቀላል መንገድ አካውንት ይፍጠሩ</p>
+        </div>
 
-    <p>አካውንት አለዎት? <a href="{% url 'login' %}">ይግቡ</a></p>
+        {% if messages %}
+            <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 rounded-r-xl">
+                <ul class="text-sm text-green-700 space-y-1">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="POST" class="space-y-5">
+            {% csrf_token %}
+
+            <div class="space-y-4 [&>p]:flex [&>p]:flex-col [&>p]:gap-1.5 [&>p>label]:text-sm [&>p>label]:font-medium [&>p>label]:text-gray-700 [&>p>input]:w-full [&>p>input]:px-4 [&>p>input]:py-2.5 [&>p>input]:border [&>p>input]:border-gray-300 [&>p>input]:rounded-xl [&>p>input]:focus:ring-2 [&>p>input]:focus:ring-indigo-500 [&>p>input]:focus:border-indigo-500 [&>p>input]:outline-none [&>p>ul]:text-xs [&>p>ul]:text-red-600 [&>p>ul]:list-disc [&>p>ul]:pl-5">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 transition duration-200 transform active:scale-95">
+                ይመዝገቡ
+            </button>
+        </form>
+
+        <div class="mt-8 text-center text-sm text-gray-600">
+            አካውንት አለዎት? <a href="{% url 'login' %}" class="font-medium text-indigo-600 hover:text-indigo-500 transition">ይግቡ</a>
+        </div>
+
+    </div>
+
 </body>
 </html>
