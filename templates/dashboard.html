@@ -7,7 +7,7 @@
     <p class="fs-5">ዛሬ የሠሩት ኦርደር፦ <span id="orders-done" class="fw-bold text-primary">{{ wallet.daily_orders_done }}</span>/1</p>
 
     <div class="mt-4">
-        <button id="orderBtn" class="btn btn-primary btn-lg px-5 py-3" {% if wallet.daily_orders_done >= 1 %}disabled{% endif %}>
+        <button id="orderBtn" class="btn btn-primary btn-lg px-5 py-3" {% if wallet.daily_orders_done >= 1 or wallet.balance < 1000 %}disabled{% endif %}>
             የዛሬውን ኦርደር ሥራ (100 ብር አውጣ)
         </button>
         <a href="{% url 'deposit' %}" class="btn btn-success btn-lg px-5 py-3 ms-2">ገንዘብ አስገባ (1000 ብር)</a>
@@ -33,8 +33,11 @@ document.getElementById('orderBtn').addEventListener('click', function() {
     .then(data => {
         alert(data.message);
         if (data.status === 'success') {
+            // ባላንሱን በ 100 ብር ከፍ ያደርገዋል
             let currentBalance = parseFloat(document.getElementById('balance').innerText);
             document.getElementById('balance').innerText = (currentBalance + 100).toFixed(2);
+
+            // የሰራውን ኦርደር 1 በማድረግ ቁልፉን ይዘጋዋል (Disabled)
             document.getElementById('orders-done').innerText = "1";
             document.getElementById('orderBtn').disabled = true;
         }
