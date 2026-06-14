@@ -7,14 +7,13 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # የቋንቋ መቀየሪያ ሊንክ (ይህ ነው የጎደለው)
-    path('i18n/', include('django.conf.urls.i18n')),
+    # Namespace ተጨምሯል
+    path('i18n/', include(('django.conf.urls.i18n', 'i18n'), namespace='i18n')),
 ]
 
 urlpatterns += i18n_patterns(
     path('', include('core.urls')),
 
-    # የይለፍ ቃል መቀየሪያ ሊንኮች
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'),
          name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),

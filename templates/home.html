@@ -25,7 +25,7 @@
 <body class="bg-slate-50 font-sans min-h-screen flex flex-col items-center justify-center p-4 relative overflow-x-hidden">
 
     <div class="absolute top-6 right-6 z-50">
-        <form action="{% url 'set_language' %}" method="post">
+        <form action="{% url 'i18n:set_language' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.get_full_path }}">
 
