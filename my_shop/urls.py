@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
     # ባዶ ዩአርኤል ሲገባ በቀጥታ ወደ እንግሊዝኛ ቋንቋ ራውተር ይመራል
-    path('', RedirectView.as_view(url='/en-us/', permanent=False)),
+    path('', RedirectView.as_view(url='/en/', permanent=False)),
 ]
 
 urlpatterns += i18n_patterns(
