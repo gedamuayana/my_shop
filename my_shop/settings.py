@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'  # ከ 'en-us' ወደ 'en' ተስተካክሏል
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -124,8 +124,6 @@ LOGIN_URL = 'login'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 LOGIN_REDIRECT_URL = 'dashboard'
-
-USE_I18N = True
 
 LANGUAGES = [
     ('en', 'English'),
