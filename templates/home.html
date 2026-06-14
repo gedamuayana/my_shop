@@ -43,8 +43,8 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'dashboard' %}" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all">ወደ ዳሽቦርድ ይግቡ</a>
             {% else %}
-                <a href="{% url 'login' %}" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all">ይግቡ (Login)</a>
-                <a href="{% url 'register' %}" class="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold rounded-2xl border border-slate-200 transition-all">ይመዝገቡ (Register)</a>
+                <a href="{% url 'login' %}" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all">Login</a>
+                <a href="{% url 'register' %}" class="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold rounded-2xl border border-slate-200 transition-all">Register</a>
             {% endif %}
         </div>
     </div>
