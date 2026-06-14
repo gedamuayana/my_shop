@@ -33,11 +33,9 @@ document.getElementById('orderBtn').addEventListener('click', function() {
     .then(data => {
         alert(data.message);
         if (data.status === 'success') {
-            // ባላንሱን በ 100 ብር ከፍ ያደርገዋል
             let currentBalance = parseFloat(document.getElementById('balance').innerText);
             document.getElementById('balance').innerText = (currentBalance + 100).toFixed(2);
 
-            // የሰራውን ኦርደር 1 በማድረግ ቁልፉን ይዘጋዋል (Disabled)
             document.getElementById('orders-done').innerText = "1";
             document.getElementById('orderBtn').disabled = true;
         }
