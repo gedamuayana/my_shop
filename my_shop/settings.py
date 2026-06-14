@@ -122,3 +122,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = 'login'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+# ይህንን መስመር በ settings.py ፋይልዎ መጨረሻ ላይ ይፃፉ
+LOGIN_REDIRECT_URL = 'dashboard'
