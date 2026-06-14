@@ -1,14 +1,13 @@
 from django.contrib import admin
 from .models import UserWallet, DepositRequest
 
-admin.site.register(UserWallet)
-
-from django.contrib import admin
-
 # የአድሚን ርዕስ መቀየሪያ
 admin.site.site_header = 'Administration'
 admin.site.site_title = 'Administration'
 admin.site.index_title = 'Administration Control Panel'
+
+admin.site.register(UserWallet)
+
 @admin.register(DepositRequest)
 class DepositRequestAdmin(admin.ModelAdmin):
     list_display = ['user', 'amount', 'status', 'created_at']
