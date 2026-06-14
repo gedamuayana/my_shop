@@ -47,6 +47,11 @@
                     </label>
                     <input type="password" name="password" required>
                 </div>
+                <div class="text-right pr-1">
+                    <a href="{% url 'password_reset' %}" class="text-xs font-black text-indigo-600 hover:text-indigo-500 transition-colors underline decoration-2 underline-offset-4 decoration-indigo-400">
+                        {% trans "የይለፍ ቃልዎን ረሱ?" %}
+                    </a>
+                </div>
             </div>
 
             <button type="submit" class="w-full py-4 px-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-extrabold rounded-2xl shadow-xl shadow-indigo-200/60 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95">

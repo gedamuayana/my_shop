@@ -134,3 +134,4 @@ LANGUAGES = [
 LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
