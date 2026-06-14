@@ -80,11 +80,10 @@
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
             {% if user.is_authenticated %}
-                <a href="{% url 'dashboard' %}" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all hover:shadow-indigo-300/50 hover:shadow-lg hover:scale-[1.02] duration-300">ወደ ዳሽቦርድ ይግቡ</a>
-            {% else %}
-                <a href="{% url 'login' %}" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all hover:shadow-indigo-300/50 hover:shadow-lg hover:scale-[1.02] duration-300">Login</a>
-                <a href="{% url 'register' %}" class="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold rounded-2xl border border-slate-200 transition-all hover:shadow-md hover:scale-[1.02] duration-300">Register</a>
+                <a href="{% url 'dashboard' %}" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all hover:shadow-indigo-300/50 hover:shadow-lg hover:scale-[1.02] duration-300 text-center">ወደ ዳሽቦርድ ይግቡ</a>
             {% endif %}
+            <a href="{% url 'login' %}" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all hover:shadow-indigo-300/50 hover:shadow-lg hover:scale-[1.02] duration-300 text-center">Login</a>
+            <a href="{% url 'register' %}" class="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold rounded-2xl border border-slate-200 transition-all hover:shadow-md hover:scale-[1.02] duration-300 text-center">Register</a>
         </div>
     </div>
 
