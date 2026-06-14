@@ -3,9 +3,25 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import UserWallet, DepositRequest
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
-# 1. ዋናው የተጠቃሚ ገጽ (Dashboard)
+# 1. የተጠቃሚ ምዝገባ (Register View) - የጎደለው ይህ ነው!
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'አካውንትዎ በሰላም ተፈጥሯል! አሁን መግባት ይችላሉ።')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'register.html', {'form': form})
+
+
+# 2. ዋናው የተጠቃሚ ገጽ (Dashboard)
 @login_required
 def dashboard(request):
     wallet, created = UserWallet.objects.get_or_create(user=request.user)
@@ -15,7 +31,7 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 
-# 2. 1000 ብር አስገብቶ ስክሪንሾት መላኪያ ገጽ
+# 3. 1000 ብር አስገብቶ ስክሪንሾት መላኪያ ገጽ
 @login_required
 def submit_deposit(request):
     if request.method == 'POST':
@@ -36,7 +52,7 @@ def submit_deposit(request):
     return render(request, 'deposit.html')
 
 
-# 3. የዕለታዊ ኦርደር ሎጂክ (በቀን 100 ብር መደመሪያ)
+# 4. የዕለታዊ ኦርደር ሎጂክ (በቀን 100 ብር መደመሪያ)
 @login_required
 def complete_order(request):
     if request.method == 'POST':
@@ -52,8 +68,8 @@ def complete_order(request):
             return JsonResponse({'status': 'error', 'message': 'የዛሬውን ኦርደር ጨርሰዋል! እባክዎ ነገ ይመለሱ።'})
 
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
-from django.contrib.auth.models import User
 
-# ይህ ኮድ አድሚን አካውንት ከሌለ በራሱ ፈጥሮ ያልፋል
+
+# አድሚን አካውንት በራሱ እንዲፈጥር የተደረገው
 if not User.objects.filter(is_superuser=True).exists():
     User.objects.create_superuser('kena', 'gedamuayana51@gmail.com', 'Gedamu@7775')
