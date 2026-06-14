@@ -6,17 +6,24 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+# ብጁ የሆነ ፎርም እንፈጥራለን (ይህ ፎርም የይለፍ ቃል መመሪያዎችን ያጠፋል)
+class CustomUserCreationForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # የሁሉንም መስኮች መመሪያ (help_text) ባዶ እናደርጋለን
+        for field in self.fields.values():
+            field.help_text = ''
 
-# 1. የተጠቃሚ ምዝገባ (Register View) - የጎደለው ይህ ነው!
+# 1. የተጠቃሚ ምዝገባ (Register View) - አሁን ብጁ ፎርማችንን ይጠቀማል
 def register_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'አካውንትዎ በሰላም ተፈጥሯል! አሁን መግባት ይችላሉ።')
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
 
     return render(request, 'register.html', {'form': form})
 
