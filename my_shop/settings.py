@@ -124,3 +124,13 @@ LOGIN_URL = 'login'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 # ይህንን መስመር በ settings.py ፋይልዎ መጨረሻ ላይ ይፃፉ
 LOGIN_REDIRECT_URL = 'dashboard'
+USE_I18N = True
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('am', 'አማርኛ'),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
