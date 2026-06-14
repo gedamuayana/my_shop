@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <title>የተጠቃሚ ምዝገባ</title>
+</head>
+<body>
+    <h2>አዲስ አካውንት ይፍጠሩ</h2>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ይመዝገቡ</button>
+    </form>
+
+    <p>አካውንት አለዎት? <a href="{% url 'login' %}">ይግቡ</a></p>
+</body>
+</html>
