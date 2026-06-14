@@ -28,10 +28,10 @@
             <form action="{% url 'set_language' %}" method="post" class="flex gap-4">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                <button type="submit" name="language" value="en" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 rounded-xl text-2xl transition-all" title="English">
+                <button type="submit" name="language" value="en" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 rounded-xl text-2xl transition-all shadow-sm" title="English">
                     🇺🇸
                 </button>
-                <button type="submit" name="language" value="am" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 rounded-xl text-2xl transition-all" title="አማርኛ">
+                <button type="submit" name="language" value="am" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 rounded-xl text-2xl transition-all shadow-sm" title="አማርኛ">
                     🇪🇹
                 </button>
             </form>
