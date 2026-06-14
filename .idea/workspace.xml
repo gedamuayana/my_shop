@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eae4796-5955-4065-a114-33bdfc4e8d63" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_shop/locale/am/LC_MESSAGES" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/admin.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/apps.py" beforeDir="false" />
@@ -15,7 +14,6 @@
       <change beforePath="$PROJECT_DIR$/my_shop/core/tests.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/urls.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/my_shop/core/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +21,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/my_shop" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
