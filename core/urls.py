@@ -11,7 +11,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('register/', views.register_view, name='register'),
 
-    # የቋንቋ መቀየሪያ ዱካ (URL) እዚህ ይጨመራል
+    # የቋንቋ መቀየሪያ ዱካ (URL)
     path('set-language/', views.set_language_view, name='set_language'),
+
+    # አዲሱ የይለፍ ቃል ማስተካከያ እዚህ ውስጥ (ቅንፍ ውስጥ) ይገባል
+    path('direct-reset/', views.direct_password_reset, name='direct_reset'),
 ]
-path('direct-reset/', views.direct_password_reset, name='direct_reset'),
