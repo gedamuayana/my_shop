@@ -5,6 +5,9 @@ from .models import UserWallet, DepositRequest
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.utils.translation import activate
+
 
 # የተስተካከለው ብጁ ፎርም (የሁሉንም መስኮች መመሪያ በግልጽ ያጠፋል)
 class CustomUserCreationForm(UserCreationForm):
@@ -19,6 +22,7 @@ class CustomUserCreationForm(UserCreationForm):
         if 'password2' in self.fields:
             self.fields['password2'].help_text = ''
 
+
 # 1. የተጠቃሚ ምዝገባ (Register View)
 def register_view(request):
     if request.method == 'POST':
@@ -32,6 +36,7 @@ def register_view(request):
 
     return render(request, 'register.html', {'form': form})
 
+
 # 2. ዋናው የተጠቃሚ ገጽ (Dashboard)
 @login_required
 def dashboard(request):
@@ -40,6 +45,7 @@ def dashboard(request):
         'wallet': wallet
     }
     return render(request, 'dashboard.html', context)
+
 
 # 3. 1000 ብር አስገብቶ ስክሪንሾት መላኪያ ገጽ
 @login_required
@@ -61,6 +67,7 @@ def submit_deposit(request):
 
     return render(request, 'deposit.html')
 
+
 # 4. የዕለታዊ ኦርደር ሎጂክ (በቀን 100 ብር መደመሪያ)
 @login_required
 def complete_order(request):
@@ -78,15 +85,16 @@ def complete_order(request):
 
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
 
-# አድሚን አካውንት በራሱ እንዲፈጥር የተደረገው (ከፈንክሽኖች ጋር በአንድ መስመር ተስተካከለ)
+
+# አድሚን አካውንት በራሱ እንዲፈጥር የተደረገው
 if not User.objects.filter(is_superuser=True).exists():
     User.objects.create_superuser('kena', 'gedamuayana51@gmail.com', 'Gedamu@7775')
 
-# 5. ሆም ፔጅ ቪው (ከእንግዲህ በትክክል ከሎግኢን በፊት ይነበባል)
+
+# 5. ሆም ፔጅ ቪው
 def home_view(request):
     return render(request, 'home.html')
-from django.http import HttpResponseRedirect
-from django.utils.translation import activate
+
 
 def set_language_view(request):
     if request.method == 'POST':
@@ -99,20 +107,20 @@ def set_language_view(request):
     return HttpResponseRedirect('/')
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib import messages
-
-
+# 6. ቀጥታ የይለፍ ቃል መቀየሪያ (ከተረጋገጫ ጋር)
 def direct_password_reset(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         new_password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # የይለፍ ቃሎቹ መመሳሰላቸውን ማረጋገጥ
+        if new_password != confirm_password:
+            messages.error(request, 'የይለፍ ቃሎቹ አይመሳሰሉም፤ እባክዎን ደግመው ይሞክሩ።')
+            return render(request, 'registration/direct_reset.html')
 
         try:
-            # ዩዘርኔሙ ትክክል መሆኑን ማረጋገጥ
             user = User.objects.get(username=username)
-            # አዲሱን ፓስወርድ መቀየር
             user.set_password(new_password)
             user.save()
             messages.success(request, 'የይለፍ ቃልዎ በተሳካ ሁኔታ ተቀይሯል! አሁን በአዲሱ ፓስወርድ መግባት ይችላሉ።')
