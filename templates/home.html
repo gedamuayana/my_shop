@@ -16,12 +16,16 @@
 
             {% get_current_language as CURRENT_LANG %}
             {% if CURRENT_LANG == 'en' %}
-                <button type="submit" name="language" value="am" class="flex items-center gap-2 px-4 py-2 bg-slate-900/90 hover:bg-slate-950 text-white rounded-full shadow-lg border border-slate-700 text-sm font-semibold backdrop-blur-sm transition-all">
-                    <span>🌍</span> <span>አማርኛ</span>
+                <button type="submit" name="language" value="am" class="flex items-center gap-3 px-4 py-2 bg-slate-900/90 hover:bg-slate-950 text-white rounded-full transition-all shadow-lg border border-slate-700 text-sm font-semibold backdrop-blur-sm">
+                    <span class="text-base">🌍</span>
+                    <span>አማርኛ</span>
+                    <svg class="w-4 h-4 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
                 </button>
             {% else %}
-                <button type="submit" name="language" value="en" class="flex items-center gap-2 px-4 py-2 bg-slate-900/90 hover:bg-slate-950 text-white rounded-full shadow-lg border border-slate-700 text-sm font-semibold backdrop-blur-sm transition-all">
-                    <span>🌍</span> <span>English</span>
+                <button type="submit" name="language" value="en" class="flex items-center gap-3 px-4 py-2 bg-slate-900/90 hover:bg-slate-950 text-white rounded-full transition-all shadow-lg border border-slate-700 text-sm font-semibold backdrop-blur-sm">
+                    <span class="text-base">🌍</span>
+                    <span>English</span>
+                    <svg class="w-4 h-4 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
                 </button>
             {% endif %}
         </form>
@@ -39,12 +43,8 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'dashboard' %}" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all">ወደ ዳሽቦርድ ይግቡ</a>
             {% else %}
-                <a href="{% url 'login' %}" class="flex items-center justify-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all">
-                    <span>🔑</span> ይግቡ
-                </a>
-                <a href="{% url 'register' %}" class="flex items-center justify-center gap-2 px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold rounded-2xl border border-slate-200 transition-all">
-                    <span>📝</span> ይመዝገቡ
-                </a>
+                <a href="{% url 'login' %}" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all">ይግቡ (Login)</a>
+                <a href="{% url 'register' %}" class="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold rounded-2xl border border-slate-200 transition-all">ይመዝገቡ (Register)</a>
             {% endif %}
         </div>
     </div>
