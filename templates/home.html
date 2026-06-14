@@ -1,5 +1,6 @@
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="am">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,21 @@
 <body class="bg-slate-50 font-sans min-h-screen flex flex-col items-center justify-center p-4 relative">
 
     <div class="absolute top-6 right-6 z-50">
-        <div class="flex items-center gap-2 px-4 py-2 bg-slate-900/90 text-white rounded-full shadow-lg border border-slate-700 text-sm font-semibold backdrop-blur-sm">
-            <span>🌍</span> <span>አማርኛ</span>
-        </div>
+        <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+
+            {% get_current_language as CURRENT_LANG %}
+            {% if CURRENT_LANG == 'en' %}
+                <button type="submit" name="language" value="am" class="flex items-center gap-2 px-4 py-2 bg-slate-900/90 hover:bg-slate-950 text-white rounded-full shadow-lg border border-slate-700 text-sm font-semibold backdrop-blur-sm transition-all">
+                    <span>🌍</span> <span>አማርኛ</span>
+                </button>
+            {% else %}
+                <button type="submit" name="language" value="en" class="flex items-center gap-2 px-4 py-2 bg-slate-900/90 hover:bg-slate-950 text-white rounded-full shadow-lg border border-slate-700 text-sm font-semibold backdrop-blur-sm transition-all">
+                    <span>🌍</span> <span>English</span>
+                </button>
+            {% endif %}
+        </form>
     </div>
 
     <div class="text-center max-w-xl bg-white p-10 rounded-3xl shadow-xl border border-slate-100 mt-12">
