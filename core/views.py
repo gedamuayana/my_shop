@@ -97,3 +97,27 @@ def set_language_view(request):
             request.session['django_language'] = language
         return HttpResponseRedirect(next_url)
     return HttpResponseRedirect('/')
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib import messages
+
+
+def direct_password_reset(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        new_password = request.POST.get('password')
+
+        try:
+            # ዩዘርኔሙ ትክክል መሆኑን ማረጋገጥ
+            user = User.objects.get(username=username)
+            # አዲሱን ፓስወርድ መቀየር
+            user.set_password(new_password)
+            user.save()
+            messages.success(request, 'የይለፍ ቃልዎ በተሳካ ሁኔታ ተቀይሯል! አሁን በአዲሱ ፓስወርድ መግባት ይችላሉ።')
+            return redirect('login')
+        except User.DoesNotExist:
+            messages.error(request, 'ይህ ዩዘር ስም አልተገኘም፤ እባክዎን በትክክል ያስገቡ።')
+
+    return render(request, 'registration/direct_reset.html')

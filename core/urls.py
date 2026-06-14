@@ -14,3 +14,4 @@ urlpatterns = [
     # የቋንቋ መቀየሪያ ዱካ (URL) እዚህ ይጨመራል
     path('set-language/', views.set_language_view, name='set_language'),
 ]
+path('direct-reset/', views.direct_password_reset, name='direct_reset'),
