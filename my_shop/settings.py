@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'  # ከ 'en-us' ወደ 'en' ተስተካክሏል
 
 TIME_ZONE = 'UTC'
 
@@ -122,8 +122,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = 'login'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# ይህንን መስመር በ settings.py ፋይልዎ መጨረሻ ላይ ይፃፉ
+
 LOGIN_REDIRECT_URL = 'dashboard'
+
 USE_I18N = True
 
 LANGUAGES = [
