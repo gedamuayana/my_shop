@@ -6,15 +6,20 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-# ብጁ የሆነ ፎርም እንፈጥራለን (ይህ ፎርም የይለፍ ቃል መመሪያዎችን ያጠፋል)
+# የተስተካከለው ብጁ ፎርም (የሁሉንም መስኮች መመሪያ በግልጽ ያጠፋል)
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # የሁሉንም መስኮች መመሪያ (help_text) ባዶ እናደርጋለን
-        for field in self.fields.values():
-            field.help_text = ''
+        if 'username' in self.fields:
+            self.fields['username'].help_text = ''
+        if 'password' in self.fields:
+            self.fields['password'].help_text = ''
+        if 'password1' in self.fields:
+            self.fields['password1'].help_text = ''
+        if 'password2' in self.fields:
+            self.fields['password2'].help_text = ''
 
-# 1. የተጠቃሚ ምዝገባ (Register View) - አሁን ብጁ ፎርማችንን ይጠቀማል
+# 1. የተጠቃሚ ምዝገባ (Register View)
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -72,7 +77,7 @@ def complete_order(request):
             wallet.save()
             return JsonResponse({'status': 'success', 'message': 'እንኳን ደስ አለዎት! 100 ብር ወደ አካውንትዎ ተጨምሯል።'})
         else:
-            return JsonResponse({'status': 'error', 'message': 'የዛሬውን ኦርደር ጨርሰዋል! እባክዎ ነገ ይመለሱ።'})
+            return JsonResponse({'status': 'error', 'message': 'የዛሬውን ኦርደር ጨርሰዋል! እባክዎ ነገ ይመለሱ。'})
 
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
 
