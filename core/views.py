@@ -32,7 +32,6 @@ def register_view(request):
 
     return render(request, 'register.html', {'form': form})
 
-
 # 2. ዋናው የተጠቃሚ ገጽ (Dashboard)
 @login_required
 def dashboard(request):
@@ -41,7 +40,6 @@ def dashboard(request):
         'wallet': wallet
     }
     return render(request, 'dashboard.html', context)
-
 
 # 3. 1000 ብር አስገብቶ ስክሪንሾት መላኪያ ገጽ
 @login_required
@@ -63,7 +61,6 @@ def submit_deposit(request):
 
     return render(request, 'deposit.html')
 
-
 # 4. የዕለታዊ ኦርደር ሎጂክ (በቀን 100 ብር መደመሪያ)
 @login_required
 def complete_order(request):
@@ -81,10 +78,10 @@ def complete_order(request):
 
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
 
-
-# አድሚን አካውንት በራሱ እንዲፈጥር የተደረገው
+# አድሚን አካውንት በራሱ እንዲፈጥር የተደረገው (ከፈንክሽኖች ጋር በአንድ መስመር ተስተካከለ)
 if not User.objects.filter(is_superuser=True).exists():
     User.objects.create_superuser('kena', 'gedamuayana51@gmail.com', 'Gedamu@7775')
 
-    def home_view(request):
-        return render(request, 'home.html')
+# 5. ሆም ፔጅ ቪው (ከእንግዲህ በትክክል ከሎግኢን በፊት ይነበባል)
+def home_view(request):
+    return render(request, 'home.html')
