@@ -1,15 +1,16 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="am">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ይግቡ</title>
+    <title>{% trans "ይግቡ" %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-tr from-slate-50 via-indigo-50/30 to-purple-50/50 min-h-screen flex items-center justify-center font-sans p-4">
 
     <div class="bg-white/70 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] w-full max-w-md border border-white/80 relative overflow-hidden">
-        
+
         <div class="absolute -top-40 -right-40 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
         <div class="absolute -bottom-40 -left-40 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
 
@@ -19,42 +20,42 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                 </svg>
             </div>
-            <h2 class="text-3xl font-black text-slate-900 tracking-tight bg-gradient-to-r from-slate-900 to-indigo-900 bg-clip-text">እንኳን ደህና መጡ</h2>
-            <p class="text-slate-500 text-sm font-medium mt-2">በተጠቃሚ ስምዎ እና የይለፍ ቃልዎ ይግቡ</p>
+            <h2 class="text-3xl font-black text-slate-900 tracking-tight bg-gradient-to-r from-slate-900 to-indigo-900 bg-clip-text">{% trans "እንኳን ደህና መጡ" %}</h2>
+            <p class="text-slate-500 text-sm font-medium mt-2">{% trans "በተጠቃሚ ስምዎ እና የይለፍ ቃልዎ ይግቡ" %}</p>
         </div>
 
         {% if form.errors %}
             <div class="mb-6 p-4 bg-rose-50/80 backdrop-blur-md border-l-4 border-rose-500 rounded-2xl shadow-sm space-y-2">
-                <p class="text-sm text-rose-800 font-extrabold">ተፈጥሮ የነበረ ስህተት፡</p>
-                <p class="text-sm text-rose-800 font-medium">የተሳሳተ ዩዘርኔም ወይም ፓስወርድ!</p>
+                <p class="text-sm text-rose-800 font-extrabold">{% trans "ተፈጥሮ የነበረ ስህተት፡" %}</p>
+                <p class="text-sm text-rose-800 font-medium">{% trans "የተሳሳተ ዩዘርኔም ወይም ፓስወርድ!" %}</p>
             </div>
         {% endif %}
 
         <form method="POST" class="space-y-6 relative">
             {% csrf_token %}
-            
+
             <div class="space-y-4">
                 <div class="flex flex-col gap-1.5">
                     <label class="text-sm font-bold text-slate-700 tracking-wide pl-1">
-                        የተጠቃሚ ስም (Username)
+                        {% trans "የተጠቃሚ ስም (Username)" %}
                     </label>
                     <input type="text" name="username" required>
                 </div>
                 <div class="flex flex-col gap-1.5">
                     <label class="text-sm font-bold text-slate-700 tracking-wide pl-1">
-                        የይለፍ ቃል (Password)
+                        {% trans "የይለፍ ቃል (Password)" %}
                     </label>
                     <input type="password" name="password" required>
                 </div>
             </div>
 
             <button type="submit" class="w-full py-4 px-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-extrabold rounded-2xl shadow-xl shadow-indigo-200/60 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95">
-                ግባ
+                {% trans "ግባ" %}
             </button>
         </form>
 
         <div class="mt-8 text-center text-sm text-slate-600 font-medium relative">
-            አካውንት የለዎትም? <a href="{% url 'register' %}" class="font-black text-indigo-600 hover:text-indigo-500 transition-colors underline decoration-2 underline-offset-4 decoration-indigo-400">ይመዝገቡ</a>
+            {% trans "አካውንት የለዎትም?" %} <a href="{% url 'register' %}" class="font-black text-indigo-600 hover:text-indigo-500 transition-colors underline decoration-2 underline-offset-4 decoration-indigo-400">{% trans "ይመዝገቡ" %}</a>
         </div>
 
     </div>
