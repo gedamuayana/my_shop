@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2eae4796-5955-4065-a114-33bdfc4e8d63" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runtime.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_shop/locale/am/LC_MESSAGES" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/core/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_shop/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +33,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\hp\pycharm\yt-man\my_shop\templates" />
       <recent name="C:\Users\hp\pycharm\yt-man\my_shop" />
+      <recent name="C:\Users\hp\pycharm\yt-man\my_shop\templates" />
     </key>
   </component>
   <component name="RunManager">

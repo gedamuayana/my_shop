@@ -86,11 +86,6 @@ def complete_order(request):
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
 
 
-# አድሚን አካውንት በራሱ እንዲፈጥር የተደረገው
-if not User.objects.filter(is_superuser=True).exists():
-    User.objects.create_superuser('kena', 'gedamuayana51@gmail.com', 'Gedamu@7775')
-
-
 # 5. ሆም ፔጅ ቪው
 def home_view(request):
     return render(request, 'home.html')
