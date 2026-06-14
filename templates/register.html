@@ -46,9 +46,6 @@
                             {{ field.label }}
                         </label>
                         {{ field }}
-                        {% if field.help_text %}
-                            <p class="text-[11px] text-gray-400 leading-tight">{{ field.help_text }}</p>
-                        {% endif %}
                         {% if field.errors %}
                             <ul class="text-xs text-red-600 space-y-1 list-disc pl-4">
                                 {% for error in field.errors %}
