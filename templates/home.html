@@ -31,39 +31,15 @@
         </form>
     </div>
 
-    <div class="text-center max-w-xl w-full bg-white p-10 rounded-3xl shadow-xl border border-slate-100 mt-12 flex flex-col items-center">
-
-        <div class="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center mb-6 border-4 border-indigo-100 shadow-inner">
-            <svg class="w-12 h-12 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-        </div>
-
-        <h1 class="text-3xl font-black text-slate-800 mb-4 tracking-tight">
-            በኢትዮጵያ የመስመር ላይ ሥራ (Online Work)
+    <div class="text-center max-w-lg w-full bg-white p-10 rounded-3xl shadow-xl border border-slate-100 mt-12">
+        <h1 class="text-3xl font-black text-indigo-900 mb-4 tracking-tight">
+            እንኳን ወደ ኦንላይን መመሪያ ሲስተም በደህና መጡ
         </h1>
         <p class="text-slate-500 mb-8 leading-relaxed">
             በቀላሉ በመመዝገብ ዕለታዊ ስራዎችን ያከናውኑ፣ ክፍያ ይፈጽሙ፤ እንዲሁም ገቢዎን ይቆጣጠሩ.
         </p>
 
-        <div class="w-full text-left mb-8 bg-slate-50 p-6 rounded-2xl border border-slate-100 space-y-3 text-sm text-slate-600">
-            <div class="flex items-start gap-3">
-                <span class="text-indigo-500 font-bold">1.</span>
-                <p>በቤት ውስጥ ሆነው ይስሩ</p>
-            </div>
-            <div class="flex items-start gap-3">
-                <span class="text-indigo-500 font-bold">2.</span>
-                <p>ምንም አይነት የቅድመ ልምድ (Experience) አያስፈልግም</p>
-            </div>
-            <div class="flex items-start gap-3">
-                <span class="text-indigo-500 font-bold">3.</span>
-                <p>ጀማሪዎች እንኳን በቀላሉ መጀመር ይችላሉ</p>
-            </div>
-            <div class="flex items-start gap-3">
-                <span class="text-indigo-500 font-bold">4.</span>
-                <p>በቀን ውስጥ በስልክዎ ብቻ የሚሰሩ ስራዎች</p>
-            </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
+        <div class="flex flex-col gap-4 justify-center w-full">
             {% if user.is_authenticated %}
                 <a href="{% url 'dashboard' %}" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-2xl shadow-lg transition-all">ወደ ዳሽቦርድ ይግቡ</a>
             {% else %}
