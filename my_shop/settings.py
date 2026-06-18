@@ -2,11 +2,13 @@ import os
 from pathlib import Path
 import dj_database_url
 
+# BASE_DIR መገኛ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECRET_KEY (ለደህንነት በ Environment Variable ማለቱ ይሻላል)
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ra0v(_u4nm7s*4paat87t4#i8d3j%j_5osi8bbp$-+gdwl*+ia')
 
-# ይህ ለ Render በጣም አስፈላጊ ነው
+# DEBUG ቅንብር - Render ላይ False መሆን አለበት፣ ስህተት ለማየት ግን True ማድረግ ይቻላል
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['my-shop-jljx.onrender.com', 'localhost', '127.0.0.1']
@@ -23,7 +25,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # ለ Production አስፈላጊ ነው
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Static files ለRender ለማቅረብ
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,24 +55,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_shop.wsgi.application'
 
+# የዳታቤዝ ማዋቀር (Render ለሚጠቀምበት PostgreSQL)
 DATABASES = {
     'default': dj_database_url.config(
         default=f'sqlite:///{BASE_DIR}/db.sqlite3',
         conn_max_age=600,
+        ssl_require=True
     )
 }
 
-# Static Files (Render ላይ እንዲሰሩ)
+# Static Files ማዋቀር (አስፈላጊ ነው!)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media Files ማዋቀር
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# ቋንቋ እና ሰዓት
 LANGUAGE_CODE = 'am'
 USE_I18N = True
-USE_L10N = True # ይህንን ጨምር
+USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [('en', 'English'), ('am', 'አማርኛ')]
