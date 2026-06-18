@@ -50,8 +50,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.clickjacking.XFrameOptionsMiddleware',
-]
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',]
 
 ROOT_URLCONF = 'my_shop.urls'
 
