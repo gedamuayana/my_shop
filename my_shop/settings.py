@@ -89,4 +89,4 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LANGUAGES = [('en', 'English'), ('am', 'አማርኛ')]
 LOCALE_PATHS = [BASE_DIR / 'locale']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEBUG = FALSE  # ይህንን ለጊዜው True አድርገው
+DEBUG = True # ይህንን ለጊዜው True አድርገው
