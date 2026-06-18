@@ -4,16 +4,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.auth import views as auth_views
-from django.urls import path
-from . import views
+
+# "from . import views" የሚለውን መስመር ሙሉ በሙሉ አስወግደነዋል!
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Namespace ተጨምሯል
     path('i18n/', include(('django.conf.urls.i18n', 'i18n'), namespace='i18n')),
 ]
 
 urlpatterns += i18n_patterns(
-    path('', include('core.urls')),
+    path('', include('core.urls')), # የcore/urls.py ፋይልን እዚህ ነው የምንጠራው
 
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'),
          name='password_reset'),
