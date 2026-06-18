@@ -1,49 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="card p-4 shadow-sm text-center col-md-8 mx-auto mt-5">
-    <h2>እንኳን ደህና መጡ፣ {{ request.user.username }}!</h2>
-    <hr>
-    <h3 class="text-success my-4">የአሁኑ ባላንስዎ፦ <span id="balance">{{ wallet.balance }}</span> ብር</h3>
-    <p class="fs-5">ዛሬ የሠሩት ኦርደር፦ <span id="orders-done" class="fw-bold text-primary">{{ wallet.daily_orders_done }}</span>/1</p>
-
-    <div class="mt-4">
-        <button id="orderBtn" class="btn btn-primary btn-lg px-5 py-3" {% if wallet.daily_orders_done >= 1 or wallet.balance < 1000 %}disabled{% endif %}>
-            የዛሬውን ኦርደር ሥራ
-        </button>
-
-        <a href="{% url 'deposit' %}" class="btn btn-success btn-lg px-5 py-3 ms-2">ገንዘብ አስገባ</a>
-
-        <a href="{% url 'withdraw' %}" class="btn btn-warning btn-lg px-5 py-3 ms-2">ገንዘብ አውጣ</a>
+<div class="dashboard-container">
+    <div class="wallet-card">
+        <h3>My Wallet</h3>
+        <p>Main Balance (ETB)</p>
+        <h1 id="balance">{{ wallet.balance }} ETB</h1>
     </div>
 
-    <div class="mt-4">
-        <form action="{% url 'logout' %}" method="POST" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-link text-danger">ከሲስተሙ ውጣ (Logout)</button>
-        </form>
+    <div class="quick-actions">
+        <a href="{% url 'submit_deposit' %}" class="action-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="30">
+            <span>Deposit</span>
+        </a>
+        <a href="{% url 'withdraw' %}" class="action-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" width="30">
+            <span>Withdraw</span>
+        </a>
+        <div class="action-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" width="30">
+            <span>Gift Code</span>
+        </div>
     </div>
 </div>
 
-<script>
-// የኦርደር ሎጂክ (Fetch API)
-document.getElementById('orderBtn').addEventListener('click', function() {
-    fetch("{% url 'complete_order' %}", {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": "{{ csrf_token }}",
-            "Content-Type": "application/json"
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        if (data.status === 'success') {
-            let currentBalance = parseFloat(document.getElementById('balance').innerText);
-            document.getElementById('balance').innerText = (currentBalance + 100).toFixed(2);
-            document.getElementById('orders-done').innerText = "1";
-            document.getElementById('orderBtn').disabled = true;
-        }
-    });
-});
-</script>
+<style>
+    .dashboard-container { padding: 20px; font-family: sans-serif; }
+    .wallet-card { background: linear-gradient(135deg, #4CAF50, #8BC34A); color: white; padding: 20px; border-radius: 15px; text-align: center; }
+    .quick-actions { display: flex; justify-content: space-between; margin-top: 20px; }
+    .action-btn { background: #f0f0f0; padding: 15px; border-radius: 10px; text-align: center; width: 30%; text-decoration: none; color: black; }
+</style>
 {% endblock %}
