@@ -1,23 +1,30 @@
-<style>
-    .dashboard-container { padding: 15px; font-family: sans-serif; }
+{% load static %}
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Smart Work</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    .welcome-banner {
-        background: linear-gradient(90deg, #6a11cb, #2575fc);
-        color: white; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 15px;
-    }
+    <style>
+        /* ዳሽቦርዱ በትክክል እንዲታይ የሚረዱ የ CSS ቅንብሮች */
+        body { background-color: #f8f9fa; font-family: sans-serif; }
+        .dashboard-container { padding: 20px; max-width: 500px; margin: auto; }
+        .welcome-banner { background: linear-gradient(90deg, #6a11cb, #2575fc); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
+        .wallet-card { background: #8BC34A; color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px; }
+        .vip-ad { background: #FFC107; color: #333; font-weight: bold; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 20px; }
+        .quick-actions { display: flex; justify-content: space-between; }
+        .action-btn { background: white; padding: 15px; border-radius: 15px; text-align: center; width: 30%; text-decoration: none; color: black; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .action-btn p { margin: 5px 0 0 0; font-size: 12px; }
+    </style>
+</head>
+<body>
 
-    .wallet-card {
-        background: #8BC34A; color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 15px;
-    }
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-    .vip-ad {
-        background: #FFC107; color: #333; font-weight: bold; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 20px;
-    }
-
-    .quick-actions { display: flex; justify-content: space-between; }
-
-    .action-btn {
-        background: #f8f9fa; padding: 15px; border-radius: 15px; text-align: center; width: 30%; text-decoration: none; color: black; border: 1px solid #ddd;
-    }
-    .action-btn p { margin: 5px 0 0 0; font-size: 14px; }
-</style>
+</body>
+</html>
