@@ -81,3 +81,4 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LANGUAGES = [('en', 'English'), ('am', 'አማርኛ')]
 LOCALE_PATHS = [BASE_DIR / 'locale']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_REDIRECT_URL = 'dashboard'

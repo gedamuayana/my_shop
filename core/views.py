@@ -1,29 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from .models import UserWallet, DepositRequest
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
 from django.utils.translation import activate
+from decimal import Decimal, InvalidOperation
+from .models import UserWallet, DepositRequest, WithdrawRequest
 
-
-# የተስተካከለው ብጁ ፎርም (የሁሉንም መስኮች መመሪያ በግልጽ ያጠፋል)
+# 1. የተስተካከለው ብጁ ፎርም
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if 'username' in self.fields:
-            self.fields['username'].help_text = ''
-        if 'password' in self.fields:
-            self.fields['password'].help_text = ''
-        if 'password1' in self.fields:
-            self.fields['password1'].help_text = ''
-        if 'password2' in self.fields:
-            self.fields['password2'].help_text = ''
+        for field in self.fields:
+            self.fields[field].help_text = ''
 
-
-# 1. የተጠቃሚ ምዝገባ (Register View)
+# 2. የተጠቃሚ ምዝገባ (Register)
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -33,132 +25,83 @@ def register_view(request):
             return redirect('login')
     else:
         form = CustomUserCreationForm()
-
     return render(request, 'register.html', {'form': form})
 
-
-# 2. ዋናው የተጠቃሚ ገጽ (Dashboard)
+# 3. ዳሽቦርድ
 @login_required
 def dashboard(request):
     wallet, created = UserWallet.objects.get_or_create(user=request.user)
-    context = {
-        'wallet': wallet
-    }
-    return render(request, 'dashboard.html', context)
+    return render(request, 'dashboard.html', {'wallet': wallet})
 
-
-# 3. 1000 ብር አስገብቶ ስክሪንሾት መላኪያ ገጽ
+# 4. ተቀማጭ መላኪያ
 @login_required
 def submit_deposit(request):
     if request.method == 'POST':
         amount = request.POST.get('amount')
         screenshot = request.FILES.get('screenshot')
-
         if amount and screenshot:
-            DepositRequest.objects.create(
-                user=request.user,
-                amount=amount,
-                cbe_screenshot=screenshot
-            )
-            messages.success(request, "የክፍያ ማረጋገጫዎ በትክክል ደርሶናል! በአድሚን ሲረጋገጥ ብሩ ይገባልሃል።")
+            DepositRequest.objects.create(user=request.user, amount=amount, cbe_screenshot=screenshot)
+            messages.success(request, "የክፍያ ማረጋገጫዎ ደርሶናል!")
             return redirect('dashboard')
-        else:
-            messages.error(request, "እባክዎ መረጃዎችን በትክክል ይሙሉ!")
-
+        messages.error(request, "እባክዎ መረጃዎችን በትክክል ይሙሉ!")
     return render(request, 'deposit.html')
 
-
-# 4. የዕለታዊ ኦርደር ሎጂክ (በቀን 100 ብር መደመሪያ)
+# 5. የዕለታዊ ኦርደር ሎጂክ
 @login_required
 def complete_order(request):
     if request.method == 'POST':
         wallet = UserWallet.objects.get(user=request.user)
-
-        # በቀን 1 ጊዜ ብቻ እንዲሠራ መገደብ
         if wallet.daily_orders_done < 1:
             wallet.balance += 100
             wallet.daily_orders_done += 1
             wallet.save()
-            return JsonResponse({'status': 'success', 'message': 'እንኳን ደስ አለዎት! 100 ብር ወደ አካውንትዎ ተጨምሯል።'})
-        else:
-            return JsonResponse({'status': 'error', 'message': 'የዛሬውን ኦርደር ጨርሰዋል! እባክዎ ነገ ይመለሱ。'})
-
+            return JsonResponse({'status': 'success', 'message': '100 ብር ተጨምሯል።'})
+        return JsonResponse({'status': 'error', 'message': 'የዛሬውን ጨርሰዋል!'})
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
 
+# 6. ገንዘብ ማውጫ (Withdraw)
+@login_required
+def withdraw_view(request):
+    wallet = UserWallet.objects.get(user=request.user)
+    if request.method == 'POST':
+        amount_str = request.POST.get('amount')
+        bank_name = request.POST.get('bank_name')
+        bank_account = request.POST.get('bank_account')
+        try:
+            amount_dec = Decimal(amount_str)
+            if amount_dec <= 0:
+                messages.error(request, "ትክክለኛ መጠን ያስገቡ!")
+            elif wallet.balance >= amount_dec:
+                WithdrawRequest.objects.create(user=request.user, amount=amount_dec, bank_name=bank_name, bank_account=bank_account)
+                wallet.balance -= amount_dec
+                wallet.save()
+                messages.success(request, "ጥያቄዎ ተልኳል!")
+                return redirect('dashboard')
+            else:
+                messages.error(request, "በቂ ሂሳብ የለዎትም!")
+        except (InvalidOperation, ValueError, TypeError):
+            messages.error(request, "ቁጥር ብቻ ያስገቡ!")
+    return render(request, 'withdraw.html', {'wallet': wallet})
 
-# 5. ሆም ፔጅ ቪው
+# 7. ሌሎች ረዳት ተግባራት
 def home_view(request):
     return render(request, 'home.html')
 
-
 def set_language_view(request):
     if request.method == 'POST':
-        language = request.POST.get('language')
-        next_url = request.POST.get('next', '/')
-        if language:
-            activate(language)
-            request.session['django_language'] = language
-        return HttpResponseRedirect(next_url)
-    return HttpResponseRedirect('/')
+        activate(request.POST.get('language'))
+        request.session['django_language'] = request.POST.get('language')
+    return HttpResponseRedirect(request.POST.get('next', '/'))
 
-
-# 6. ቀጥታ የይለፍ ቃል መቀየሪያ (ከተረጋገጫ ጋር)
 def direct_password_reset(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        new_password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
-
-        # የይለፍ ቃሎቹ መመሳሰላቸውን ማረጋገጥ
-        if new_password != confirm_password:
-            messages.error(request, 'የይለፍ ቃሎቹ አይመሳሰሉም፤ እባክዎን ደግመው ይሞክሩ።')
-            return render(request, 'registration/direct_reset.html')
-
         try:
-            user = User.objects.get(username=username)
-            user.set_password(new_password)
-            user.save()
-            messages.success(request, 'የይለፍ ቃልዎ በተሳካ ሁኔታ ተቀይሯል! አሁን በአዲሱ ፓስወርድ መግባት ይችላሉ።')
-            return redirect('login')
+            user = User.objects.get(username=request.POST.get('username'))
+            if request.POST.get('password') == request.POST.get('confirm_password'):
+                user.set_password(request.POST.get('password'))
+                user.save()
+                return redirect('login')
+            messages.error(request, 'ፓስወርድ አይመሳሰልም!')
         except User.DoesNotExist:
-            messages.error(request, 'ይህ ዩዘር ስም አልተገኘም፤ እባክዎን በትክክል ያስገቡ።')
-
+            messages.error(request, 'ዩዘር ስም አልተገኘም!')
     return render(request, 'registration/direct_reset.html')
-
-
-from decimal import Decimal  # ይህንን ኢምፖርት ከላይ ማከልህን አትርሳ
-
-
-# 7. የገንዘብ ማውጫ ቪው (Withdraw View)
-@login_required
-def withdraw_view(request):
-    # የተጠቃሚውን ዋሌት አግኝ
-    wallet = UserWallet.objects.get(user=request.user)
-
-    if request.method == 'POST':
-        amount = request.POST.get('amount')
-        bank_name = request.POST.get('bank_name')
-        bank_account = request.POST.get('bank_account')
-
-        # የገንዘብ መጠኑን ወደ Decimal ቀይር
-        amount_dec = Decimal(amount)
-
-        # ተጠቃሚው በቂ ብር እንዳለው አረጋግጥ
-        if wallet.balance >= amount_dec:
-            # ጥያቄውን መዝግብ
-            WithdrawRequest.objects.create(
-                user=request.user,
-                amount=amount_dec,
-                bank_name=bank_name,
-                bank_account=bank_account
-            )
-            # ለጊዜው ብሩን ከዋሌት ቀንስ (Admin ሲያጸድቅ ተጠቃሚው ብሩን እንዲቀበል)
-            wallet.balance -= amount_dec
-            wallet.save()
-
-            messages.success(request, "የማውጣት ጥያቄዎ በተሳካ ሁኔታ ተልኳል! በአድሚን እስኪረጋገጥ ይጠብቁ።")
-            return redirect('dashboard')
-        else:
-            messages.error(request, "በቂ ሂሳብ የለዎትም!")
-
-    return render(request, 'withdraw.html', {'wallet': wallet})
