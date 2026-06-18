@@ -1,36 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="dashboard-container">
-    <div class="welcome-banner">
-        <h3>Welcome to Digital Smart Work!</h3>
-        <p>🕒 24/7 Active | ⭐ 1000+ Investors</p>
-    </div>
-
     <div class="wallet-card">
-        <p>My Wallet</p>
+        <h3>My Wallet</h3>
         <p>Main Balance (ETB)</p>
         <h1 id="balance">{{ wallet.balance }} ETB</h1>
-        <hr>
-        <p>Withdrawable Balance</p>
-        <h2>0 ETB</h2> </div>
-
-    <div class="vip-ad">
-        <p>🔥 EARN DAILY INCOME WITH YOUR VIP MEMBERSHIP!</p>
     </div>
 
     <div class="quick-actions">
         <a href="{% url 'submit_deposit' %}" class="action-btn">
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="30">
-            <p>Deposit</p>
+            <span>Deposit</span>
         </a>
         <a href="{% url 'withdraw' %}" class="action-btn">
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" width="30">
-            <p>Withdraw</p>
+            <span>Withdraw</span>
         </a>
         <div class="action-btn">
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" width="30">
-            <p>Gift Code</p>
+            <span>Gift Code</span>
         </div>
     </div>
 </div>
+
+<style>
+    .dashboard-container { padding: 20px; font-family: sans-serif; }
+    .wallet-card { background: linear-gradient(135deg, #4CAF50, #8BC34A); color: white; padding: 20px; border-radius: 15px; text-align: center; }
+    .quick-actions { display: flex; justify-content: space-between; margin-top: 20px; }
+    .action-btn { background: #f0f0f0; padding: 15px; border-radius: 10px; text-align: center; width: 30%; text-decoration: none; color: black; }
+</style>
 {% endblock %}
