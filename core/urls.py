@@ -5,19 +5,15 @@ from . import views
 urlpatterns = [
     path('', views.home_view, name='home'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('deposit/', views.submit_deposit, name='deposit'),
 
-    # አዲሱ የWithdraw ዱካ (URL)
+    # ስሙን 'deposit' ወደ 'submit_deposit' ቀይረነዋል
+    path('deposit/', views.submit_deposit, name='submit_deposit'),
+
     path('withdraw/', views.withdraw_view, name='withdraw'),
-
     path('complete-order/', views.complete_order, name='complete_order'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('register/', views.register_view, name='register'),
-
-    # የቋንቋ መቀየሪያ ዱካ (URL)
     path('set-language/', views.set_language_view, name='set_language'),
-
-    # የይለፍ ቃል ማስተካከያ
     path('direct-reset/', views.direct_password_reset, name='direct_reset'),
 ]
