@@ -1,33 +1,22 @@
-<!DOCTYPE html>
-<html lang="am">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Shop Task</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body class="bg-light">
+<style>
+    .dashboard-container { padding: 15px; font-family: sans-serif; }
 
-    <!-- የመልእክት ማሳያ ክፍል (Messages) -->
-    <div class="container mt-3">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+    .welcome-banner {
+        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        color: white; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 15px;
+    }
 
-    <!-- ዋናው የገጽ ይዘት -->
-    <div class="container mt-4">
-        {% block content %}
-        {% endblock %}
-    </div>
+    .wallet-card {
+        background: #8BC34A; color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 15px;
+    }
 
-    <!-- Bootstrap JS (ለAlert መዝጊያ አስፈላጊ ነው) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    .vip-ad {
+        background: #FFC107; color: #333; font-weight: bold; padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 20px;
+    }
+
+    .quick-actions { display: flex; justify-content: space-between; }
+
+    .action-btn {
+        background: #f8f9fa; padding: 15px; border-radius: 15px; text-align: center; width: 30%; text-decoration: none; color: black; border: 1px solid #ddd;
+    }
+</style>

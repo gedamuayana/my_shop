@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+from pickle import FALSE
+
 import dj_database_url
 
 # BASE_DIR ን በትክክል ማዘጋጀት
@@ -87,4 +89,4 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LANGUAGES = [('en', 'English'), ('am', 'አማርኛ')]
 LOCALE_PATHS = [BASE_DIR / 'locale']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEBUG = True  # ይህንን ለጊዜው True አድርገው
+DEBUG = FALSE  # ይህንን ለጊዜው True አድርገው
