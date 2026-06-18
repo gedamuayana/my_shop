@@ -8,12 +8,12 @@
 
     <div class="mt-4">
         <button id="orderBtn" class="btn btn-primary btn-lg px-5 py-3" {% if wallet.daily_orders_done >= 1 or wallet.balance < 1000 %}disabled{% endif %}>
-            የዛሬውን ኦርደር ሥራ (100 ብር አውጣ)
+            የዛሬውን ኦርደር ሥራ
         </button>
 
-        <a href="{% url 'deposit' %}" class="btn btn-success btn-lg px-5 py-3 ms-2">ገንዘብ አስገባ (1000 ብር)</a>
+        <a href="{% url 'deposit' %}" class="btn btn-success btn-lg px-5 py-3 ms-2">ገንዘብ አስገባ</a>
 
-        <a href="{% url 'withdraw' %}" class="btn btn-warning btn-lg px-5 py-3 ms-2">ገንዘብ አውጣ (Withdraw)</a>
+        <a href="{% url 'withdraw' %}" class="btn btn-warning btn-lg px-5 py-3 ms-2">ገንዘብ አውጣ</a>
     </div>
 
     <div class="mt-4">
@@ -25,6 +25,7 @@
 </div>
 
 <script>
+// የኦርደር ሎጂክ (Fetch API)
 document.getElementById('orderBtn').addEventListener('click', function() {
     fetch("{% url 'complete_order' %}", {
         method: "POST",
@@ -39,7 +40,6 @@ document.getElementById('orderBtn').addEventListener('click', function() {
         if (data.status === 'success') {
             let currentBalance = parseFloat(document.getElementById('balance').innerText);
             document.getElementById('balance').innerText = (currentBalance + 100).toFixed(2);
-
             document.getElementById('orders-done').innerText = "1";
             document.getElementById('orderBtn').disabled = true;
         }
