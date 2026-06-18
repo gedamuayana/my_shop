@@ -1,0 +1,16 @@
+<div class="withdraw-container">
+    <h2>ገንዘብ ማውጣት (Withdraw)</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>የሚወጣው መጠን (ETB):</label>
+        <input type="number" name="amount" required>
+
+        <label>የባንክ ስም (ለምሳሌ፡ CBE):</label>
+        <input type="text" name="bank_name" required>
+
+        <label>የአካውንት ቁጥር:</label>
+        <input type="text" name="bank_account" required>
+
+        <button type="submit">ጥያቄ ላክ</button>
+    </form>
+</div>

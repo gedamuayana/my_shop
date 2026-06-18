@@ -124,3 +124,41 @@ def direct_password_reset(request):
             messages.error(request, 'ይህ ዩዘር ስም አልተገኘም፤ እባክዎን በትክክል ያስገቡ።')
 
     return render(request, 'registration/direct_reset.html')
+
+
+from decimal import Decimal  # ይህንን ኢምፖርት ከላይ ማከልህን አትርሳ
+
+
+# 7. የገንዘብ ማውጫ ቪው (Withdraw View)
+@login_required
+def withdraw_view(request):
+    # የተጠቃሚውን ዋሌት አግኝ
+    wallet = UserWallet.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        bank_name = request.POST.get('bank_name')
+        bank_account = request.POST.get('bank_account')
+
+        # የገንዘብ መጠኑን ወደ Decimal ቀይር
+        amount_dec = Decimal(amount)
+
+        # ተጠቃሚው በቂ ብር እንዳለው አረጋግጥ
+        if wallet.balance >= amount_dec:
+            # ጥያቄውን መዝግብ
+            WithdrawRequest.objects.create(
+                user=request.user,
+                amount=amount_dec,
+                bank_name=bank_name,
+                bank_account=bank_account
+            )
+            # ለጊዜው ብሩን ከዋሌት ቀንስ (Admin ሲያጸድቅ ተጠቃሚው ብሩን እንዲቀበል)
+            wallet.balance -= amount_dec
+            wallet.save()
+
+            messages.success(request, "የማውጣት ጥያቄዎ በተሳካ ሁኔታ ተልኳል! በአድሚን እስኪረጋገጥ ይጠብቁ።")
+            return redirect('dashboard')
+        else:
+            messages.error(request, "በቂ ሂሳብ የለዎትም!")
+
+    return render(request, 'withdraw.html', {'wallet': wallet})

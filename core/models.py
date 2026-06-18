@@ -12,7 +12,6 @@ class UserWallet(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.balance} Birr"
 
-# አዲስ ሰው ሲመዘገብ በቀጥታ የገንዘብ ኪስ (Wallet) እንዲፈጠርለት የሚያደርግ ሲግናል
 @receiver(post_save, sender=User)
 def create_user_wallet(sender, instance, created, **kwargs):
     if created:
@@ -33,3 +32,15 @@ class DepositRequest(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.amount} Birr ({self.status})"
+
+# 3. የገንዘብ ማውጫ ጥያቄ (Withdraw Request) - ከDepositRequest ውጭ መሆን አለበት
+class WithdrawRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    bank_account = models.CharField(max_length=100)
+    bank_name = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, default='Pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.amount}"

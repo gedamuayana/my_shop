@@ -10,8 +10,12 @@
         <button id="orderBtn" class="btn btn-primary btn-lg px-5 py-3" {% if wallet.daily_orders_done >= 1 or wallet.balance < 1000 %}disabled{% endif %}>
             የዛሬውን ኦርደር ሥራ (100 ብር አውጣ)
         </button>
+
         <a href="{% url 'deposit' %}" class="btn btn-success btn-lg px-5 py-3 ms-2">ገንዘብ አስገባ (1000 ብር)</a>
+
+        <a href="{% url 'withdraw' %}" class="btn btn-warning btn-lg px-5 py-3 ms-2">ገንዘብ አውጣ (Withdraw)</a>
     </div>
+
     <div class="mt-4">
         <form action="{% url 'logout' %}" method="POST" style="display: inline;">
             {% csrf_token %}
