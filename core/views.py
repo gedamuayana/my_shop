@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import activate
 from decimal import Decimal, InvalidOperation
 from .models import UserWallet, DepositRequest, WithdrawRequest
-
+from django.shortcuts import render
 
 # 1. የተስተካከለው ብጁ ፎርም
 class CustomUserCreationForm(UserCreationForm):
@@ -128,3 +128,6 @@ def direct_password_reset(request):
         except User.DoesNotExist:
             messages.error(request, 'ዩዘር ስም አልተገኘም!')
     return render(request, 'registration/direct_reset.html')
+
+def profile(request):
+    return render(request, 'profile.html') # profile.html የሚባል ፋይልtemplates ውስጥ መኖር አለበት

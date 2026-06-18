@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.home_view, name='home'),
     path('dashboard/', views.dashboard, name='dashboard'),
-
+    path('accounts/profile/', views.profile, name='profile'),
     # ስሙን 'deposit' ወደ 'submit_deposit' ቀይረነዋል
     path('deposit/', views.submit_deposit, name='submit_deposit'),
 
