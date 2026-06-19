@@ -8,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        /* የጎን ክፍተትን ለማጥፋት */
         body, html {
             margin: 0;
             padding: 0;
@@ -19,28 +18,28 @@
             flex-direction: column;
         }
 
-        /* ዋናው ይዘት ሙሉውን ስፋት እንዲይዝ */
         .main-content {
             flex: 1;
-            padding: 0; /* Bootstrap container padding-ን ለመቀነስ */
+            width: 100%;
+            padding-bottom: 70px; /* Footer እንዳይሸፍን ክፍተት */
         }
 
         .dashboard-container {
-            padding: 20px;
-            max-width: 500px;
+            width: 100%;
+            max-width: 600px; /* ለስልክ ተስማሚ */
             margin: auto;
+            padding: 15px;
         }
 
-        /* Footer Style (ጨለማ ቀለም ተሰጥቶታል) */
         .footer-nav {
             background: #2c3e50;
-            border-top: 1px solid #1a252f;
             padding: 10px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
             display: flex;
             justify-content: space-around;
+            z-index: 1000; /* ሌሎች ነገሮች እንዳይሸፍኑት */
         }
         .nav-link {
             color: #ecf0f1;
