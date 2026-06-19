@@ -2,42 +2,41 @@
 {% load static %}
 
 {% block content %}
-<div class="dashboard-container">
-    <!-- Welcome Banner -->
-    <div class="welcome-banner">
-        <h3>Welcome to Digital Smart Work!</h3>
-        <p>🕒 24/7 Active | ⭐ 1000+ Investors</p>
-    </div>
+<div class="container-fluid p-0"> <div class="dashboard-container" style="max-width: 100%; margin: 0; padding: 15px;">
 
-    <!-- My Wallet Card -->
-    <div class="wallet-card">
-        <p>My Wallet</p>
-        <p>Main Balance (ETB)</p>
-        <h1 id="balance">{{ wallet.balance }} ETB</h1>
-        <hr style="border: 0.5px solid white;">
-        <p>Withdrawable Balance</p>
-        <h2>0 ETB</h2>
-    </div>
-
-    <!-- VIP Ad -->
-    <div class="vip-ad">
-        <p>🔥 EARN DAILY INCOME WITH YOUR VIP MEMBERSHIP!</p>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="quick-actions">
-        <a href="{% url 'submit_deposit' %}" class="action-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="30">
-            <p>Deposit</p>
-        </a>
-        <a href="{% url 'withdraw' %}" class="action-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" width="30">
-            <p>Withdraw</p>
-        </a>
-        <div class="action-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" width="30">
-            <p>Gift Code</p>
+        <div class="welcome-banner">
+            <h3>Welcome to Digital Smart Work!</h3>
+            <p>🕒 24/7 Active | ⭐ 1000+ Investors</p>
         </div>
+
+        <div class="wallet-card">
+            <p>My Wallet</p>
+            <p>Main Balance (ETB)</p>
+            <h1 id="balance">{{ wallet.balance }} ETB</h1>
+            <hr style="border: 0.5px solid white;">
+            <p>Withdrawable Balance</p>
+            <h2>0 ETB</h2>
+        </div>
+
+        <div class="vip-ad">
+            <p>🔥 EARN DAILY INCOME WITH YOUR VIP MEMBERSHIP!</p>
+        </div>
+
+        <div class="quick-actions" style="display: flex; justify-content: space-around;">
+            <a href="{% url 'submit_deposit' %}" class="action-btn" style="width: 30%;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="30">
+                <p>Deposit</p>
+            </a>
+            <a href="{% url 'withdraw' %}" class="action-btn" style="width: 30%;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" width="30">
+                <p>Withdraw</p>
+            </a>
+            <div class="action-btn" style="width: 30%;">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" width="30">
+                <p>Gift Code</p>
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}
