@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from django.utils.translation import activate
 from decimal import Decimal, InvalidOperation
 from .models import UserWallet, DepositRequest, WithdrawRequest
-from django.shortcuts import render
 
 # 1. የተስተካከለው ብጁ ፎርም
 class CustomUserCreationForm(UserCreationForm):
@@ -15,7 +14,6 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].help_text = ''
-
 
 # 2. የተጠቃሚ ምዝገባ
 def register_view(request):
@@ -29,13 +27,11 @@ def register_view(request):
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
 
-
 # 3. ዳሽቦርድ
 @login_required
 def dashboard(request):
     wallet, created = UserWallet.objects.get_or_create(user=request.user)
     return render(request, 'dashboard.html', {'wallet': wallet})
-
 
 # 4. ተቀማጭ መላኪያ
 @login_required
@@ -49,7 +45,6 @@ def submit_deposit(request):
             return redirect('dashboard')
         messages.error(request, "እባክዎ መረጃዎችን በትክክል ይሙሉ!")
     return render(request, 'deposit.html')
-
 
 # 5. የዕለታዊ ኦርደር ሎጂክ
 @login_required
@@ -66,7 +61,6 @@ def complete_order(request):
         except UserWallet.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Wallet አልተገኘም!'})
     return JsonResponse({'status': 'error', 'message': 'የተሳሳተ ጥያቄ!'})
-
 
 # 6. ገንዘብ ማውጫ (Withdraw)
 @login_required
@@ -98,11 +92,12 @@ def withdraw_view(request):
             messages.error(request, "ቁጥር ብቻ ያስገቡ!")
     return render(request, 'withdraw.html', {'wallet': wallet})
 
-
 # 7. ሌሎች ረዳት ተግባራት
 def home_view(request):
+    # ይህንን ኮድ በመጠቀም Render ላይ አንዴ በመግባት አድሚን መፍጠር ትችላለህ
+    if not User.objects.filter(username='new_admin').exists():
+        User.objects.create_superuser('new_admin', 'admin@example.com', 'AdminPass123')
     return render(request, 'home.html')
-
 
 def set_language_view(request):
     if request.method == 'POST':
@@ -111,7 +106,6 @@ def set_language_view(request):
             activate(lang)
             request.session['django_language'] = lang
     return HttpResponseRedirect(request.POST.get('next', '/'))
-
 
 def direct_password_reset(request):
     if request.method == 'POST':
@@ -130,4 +124,4 @@ def direct_password_reset(request):
     return render(request, 'registration/direct_reset.html')
 
 def profile(request):
-    return render(request, 'profile.html') # profile.html የሚባል ፋይልtemplates ውስጥ መኖር አለበት
+    return render(request, 'profile.html')
