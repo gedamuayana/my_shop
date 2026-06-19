@@ -55,7 +55,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_shop.wsgi.application'
 
-# የተስተካከለ የዳታቤዝ ማዋቀር
+# የዳታቤዝ ማዋቀር
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
@@ -73,6 +73,10 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+# Login Redirects
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
 
 # Static Files ማዋቀር
 STATIC_URL = '/static/'
