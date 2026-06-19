@@ -5,10 +5,10 @@ import dj_database_url
 # BASE_DIR መገኛ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET_KEY
+# SECRET_KEY - በRender Environment Variables ላይ ቢቀመጥ ይመረጣል
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ra0v(_u4nm7s*4paat87t4#i8d3j%j_5osi8bbp$-+gdwl*+ia')
 
-# DEBUG ቅንብር
+# DEBUG ቅንብር - Production ላይ False መሆን አለበት
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['my-shop-jljx.onrender.com', 'localhost', '127.0.0.1']
@@ -20,12 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic', # WhiteNoise በልማት ጊዜም እንዲሰራ
     'core',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Static ፋይሎችን ለማገልገል
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -78,9 +79,10 @@ else:
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 
-# Static Files ማዋቀር
+# Static Files ማዋቀር (Render ለዲዛይን አስፈላጊ ነው)
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / 'static'] # የአንተ static አቃፊ ካለህ
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media Files ማዋቀር
