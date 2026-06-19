@@ -5,10 +5,10 @@ import dj_database_url
 # BASE_DIR መገኛ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET_KEY - በRender Environment Variables ላይ ቢቀመጥ ይመረጣል
+# SECRET_KEY
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ra0v(_u4nm7s*4paat87t4#i8d3j%j_5osi8bbp$-+gdwl*+ia')
 
-# DEBUG ቅንብር - Production ላይ False መሆን አለበት
+# DEBUG ቅንብር - Render ላይ False መሆን አለበት
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['my-shop-jljx.onrender.com', 'localhost', '127.0.0.1']
@@ -20,15 +20,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic', # WhiteNoise በልማት ጊዜም እንዲሰራ
+    'whitenoise.runserver_nostatic',
     'core',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Static ፋይሎችን ለማገልገል
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.locale.LocaleMiddleware', # ለቋንቋ አስፈላጊ ነው
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -56,44 +56,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_shop.wsgi.application'
 
-# የዳታቤዝ ማዋቀር
+# ዳታቤዝ
 DATABASE_URL = os.environ.get('DATABASE_URL')
-
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            ssl_require=True
-        )
+DATABASES = {
+    'default': dj_database_url.config(default=DATABASE_URL) if DATABASE_URL else {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
-# Login Redirects
-LOGIN_REDIRECT_URL = 'dashboard'
-LOGIN_URL = 'login'
-
-# Static Files ማዋቀር (Render ለዲዛይን አስፈላጊ ነው)
+# Static Files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [BASE_DIR / 'static'] # የአንተ static አቃፊ ካለህ
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media Files ማዋቀር
+# Media Files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# ቋንቋ እና ሰዓት
+# ቋንቋ
 LANGUAGE_CODE = 'am'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
-
 LANGUAGES = [('en', 'English'), ('am', 'አማርኛ')]
 LOCALE_PATHS = [BASE_DIR / 'locale']
+USE_I18N = True
+USE_TZ = True
