@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -94,10 +94,14 @@ def withdraw_view(request):
 
 # 7. ሌሎች ረዳት ተግባራት
 def home_view(request):
-    # ይህንን ኮድ በመጠቀም Render ላይ አንዴ በመግባት አድሚን መፍጠር ትችላለህ
+    return render(request, 'home.html')
+
+# አድሚን ለመፍጠር የተለየ ሊንክ (ከተጠቀሙ በኋላ ሊንኩን መዝጋት ይቻላል)
+def admin_setup_view(request):
     if not User.objects.filter(username='new_admin').exists():
         User.objects.create_superuser('new_admin', 'admin@example.com', 'AdminPass123')
-    return render(request, 'home.html')
+        return HttpResponse("አድሚን ተፈጥሯል! Username: new_admin, Password: AdminPass123")
+    return HttpResponse("አድሚን ቀድሞውኑ አለ።")
 
 def set_language_view(request):
     if request.method == 'POST':
@@ -123,5 +127,7 @@ def direct_password_reset(request):
             messages.error(request, 'ዩዘር ስም አልተገኘም!')
     return render(request, 'registration/direct_reset.html')
 
+@login_required
 def profile(request):
-    return render(request, 'profile.html')
+    # የተጠቃሚውን መረጃ ወደ profile.html ለመላክ
+    return render(request, 'profile.html', {'user': request.user})
