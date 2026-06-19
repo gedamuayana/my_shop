@@ -5,10 +5,10 @@ import dj_database_url
 # BASE_DIR መገኛ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET_KEY (ለደህንነት በ Environment Variable ማለቱ ይሻላል)
+# SECRET_KEY
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ra0v(_u4nm7s*4paat87t4#i8d3j%j_5osi8bbp$-+gdwl*+ia')
 
-# DEBUG ቅንብር - Render ላይ False መሆን አለበት፣ ስህተት ለማየት ግን True ማድረግ ይቻላል
+# DEBUG ቅንብር
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['my-shop-jljx.onrender.com', 'localhost', '127.0.0.1']
@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Static files ለRender ለማቅረብ
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,16 +55,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_shop.wsgi.application'
 
-# የዳታቤዝ ማዋቀር (Render ለሚጠቀምበት PostgreSQL)
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{BASE_DIR}/db.sqlite3',
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+# የተስተካከለ የዳታቤዝ ማዋቀር
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
-# Static Files ማዋቀር (አስፈላጊ ነው!)
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+# Static Files ማዋቀር
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
