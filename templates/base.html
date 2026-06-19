@@ -3,7 +3,7 @@
 <html lang="am">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Digital Smart Work</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -16,21 +16,24 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden; /* የጎን መሸራተት እንዳይኖር */
         }
 
         .main-content {
             flex: 1;
             width: 100%;
-            padding-bottom: 70px; /* Footer እንዳይሸፍን ክፍተት */
+            padding-bottom: 80px; /* Footer እንዳይሸፍን ከታች ክፍተት */
         }
 
+        /* ዳሽቦርድ መያዣ */
         .dashboard-container {
             width: 100%;
-            max-width: 600px; /* ለስልክ ተስማሚ */
-            margin: auto;
+            max-width: 600px;
+            margin: 0 auto;
             padding: 15px;
         }
 
+        /* Footer Style */
         .footer-nav {
             background: #2c3e50;
             padding: 10px 0;
@@ -39,12 +42,14 @@
             width: 100%;
             display: flex;
             justify-content: space-around;
-            z-index: 1000; /* ሌሎች ነገሮች እንዳይሸፍኑት */
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
         .nav-link {
             color: #ecf0f1;
             text-decoration: none;
             font-size: 12px;
+            transition: color 0.3s;
         }
         .nav-link:hover {
             color: #8BC34A;
